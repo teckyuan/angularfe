@@ -2,23 +2,29 @@ import { Injectable } from "@angular/core";
 import { Product } from "./product.model";
 //import { StaticDataSource } from "./static.datasource";
 import { RestDataSource } from "./rest.datasource";
+import {MassageSession} from "./massagesession.model"
 
 @Injectable()
 export class ProductRepository {
+    private massageSessions: MassageSession[] = [];
     private products: Product[] = [];
     private categories: string[] = [];
 
     constructor(private dataSource: RestDataSource) {
         dataSource.getProducts().subscribe(data => {
-            this.products = data;
-            this.categories = data.map(p => p.category ?? "(None)")
-                .filter((c, index, array) => array.indexOf(c) == index).sort();
+            this.massageSessions = data;
+            //this.categories = data.map(p => p.category ?? "(None)")
+            //    .filter((c, index, array) => array.indexOf(c) == index).sort();
         });
     }
 
     getProducts(category?: string): Product[] {
         return this.products
             .filter(p => category == undefined || category == p.category);
+    }
+
+    getMassageSessions(): MassageSession[] {
+        return this.massageSessions;
     }
 
     getProduct(id: number): Product | undefined {

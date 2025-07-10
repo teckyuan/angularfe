@@ -1,6 +1,7 @@
 import { Component, IterableDiffer, IterableDiffers, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Product } from "../model/product.model";
+import { MassageSession } from "../model/massagesession.model";
 import { ProductRepository } from "../model/product.repository";
 import { MatPaginator } from "@angular/material/paginator";
 
@@ -8,9 +9,12 @@ import { MatPaginator } from "@angular/material/paginator";
     templateUrl: "productTable.component.html"
 })
 export class ProductTableComponent {
-    colsAndRows: string[] = ['id', 'name', 'category', 'price', 'buttons'];
-    dataSource = new MatTableDataSource<Product>(this.repository.getProducts());
-    differ: IterableDiffer<Product>;
+    colsAndRows: string[] = [ 'workerName', 'customerName','roomName','startTime' 
+        //,'price'
+        , 'buttons'];
+    //dataSource = new MatTableDataSource<Product>(this.repository.getProducts());
+    dataSource = new MatTableDataSource<MassageSession>(this.repository.getMassageSessions());
+    differ: IterableDiffer<MassageSession>;
 
     @ViewChild(MatPaginator)
     paginator? : MatPaginator
@@ -20,9 +24,9 @@ export class ProductTableComponent {
     }
 
     ngDoCheck() {
-        let changes = this.differ?.diff(this.repository.getProducts());
+        let changes = this.differ?.diff(this.repository.getMassageSessions());
         if (changes != null) {
-            this.dataSource.data = this.repository.getProducts();
+            this.dataSource.data = this.repository.getMassageSessions();
         }        
     }
 

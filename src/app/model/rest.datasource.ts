@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { Product } from "./product.model";
 import { Order } from "./order.model";
+import { MassageSession } from "./massagesession.model";
 import { HttpHeaders } from '@angular/common/http';
 
 const PROTOCOL = "https";
@@ -18,8 +19,8 @@ export class RestDataSource {
         //this.baseUrl = "/api/"
     }
 
-    getProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.baseUrl + "products");
+    getProducts(): Observable<MassageSession[]> {
+        return this.http.get<MassageSession[]>(this.baseUrl + "api/MassageSession/GetActiveSession");
     }
 
     saveOrder(order: Order): Observable<Order> {
@@ -57,7 +58,10 @@ export class RestDataSource {
     }
 
     deleteProduct(id: number): Observable<Product> {
-        return this.http.delete<Product>(`${this.baseUrl}products/${id}`,
+        return this.http.post<Product>(`${this.baseUrl}api/MassageSession/EndMassageSession`,
+            {
+            massageSessionId: id
+        },
             this.getOptions());
     }
 
@@ -78,7 +82,7 @@ export class RestDataSource {
     private getOptions() {
         return {
             headers: new HttpHeaders({
-                "Authorization": `Bearer<${this.auth_token}>`
+                "Authorization": `Bearer ${this.auth_token}`
             })
         }
     }
