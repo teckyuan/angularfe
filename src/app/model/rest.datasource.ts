@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { Product } from "./product.model";
 import { Order } from "./order.model";
+import { MassageServiceLookup } from "./massageservicelookup.model";
 import { MassageSession } from "./massagesession.model";
 import { HttpHeaders } from '@angular/common/http';
 
@@ -17,6 +18,14 @@ export class RestDataSource {
     constructor(private http: HttpClient) {
         this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
         //this.baseUrl = "/api/"
+    }
+
+    private getOptions() {
+        return {
+            headers: new HttpHeaders({
+                "Authorization": `Bearer ${this.auth_token}`
+            })
+        }
     }
 
     getProducts(): Observable<MassageSession[]> {
@@ -79,11 +88,9 @@ export class RestDataSource {
             order, this.getOptions());
     }
 
-    private getOptions() {
-        return {
-            headers: new HttpHeaders({
-                "Authorization": `Bearer ${this.auth_token}`
-            })
-        }
+    getMassageServiceLookup(): Observable<MassageServiceLookup[]> {
+        return this.http.get<MassageServiceLookup[]>(this.baseUrl + "api/MassageSession/MassageServiceLookup", this.getOptions());
     }
+
+   
 }

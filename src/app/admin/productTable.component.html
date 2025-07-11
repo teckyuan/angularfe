@@ -5,7 +5,7 @@
   <mat-text-column name="roomName"></mat-text-column>
   <ng-container matColumnDef="startTime">
     <th mat-header-cell *matHeaderCellDef>StartTime</th>
-    <td mat-cell *matCellDef="let item"> {{item.startTime | date:'HH:mm:ss'}} </td>
+    <td mat-cell *matCellDef="let item"> {{item.startTime | date:'h:mm a'}} </td>
   </ng-container>
 
   <!--

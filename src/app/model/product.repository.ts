@@ -3,12 +3,14 @@ import { Product } from "./product.model";
 //import { StaticDataSource } from "./static.datasource";
 import { RestDataSource } from "./rest.datasource";
 import {MassageSession} from "./massagesession.model"
+import {MassageServiceLookup} from "./massageservicelookup.model"
 
 @Injectable()
 export class ProductRepository {
     private massageSessions: MassageSession[] = [];
     private products: Product[] = [];
     private categories: string[] = [];
+    private massageServiceLookup: MassageServiceLookup[] = [];
 
     constructor(private dataSource: RestDataSource) {
         dataSource.getProducts().subscribe(data => {
@@ -54,4 +56,5 @@ export class ProductRepository {
                 findIndex(p => p.id == id), 1);
         })
     }
+    
 }

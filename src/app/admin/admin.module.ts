@@ -9,7 +9,8 @@ import { MaterialFeatures } from "./material.module";
 import { ProductTableComponent } from "./productTable.component";
 import { ProductEditorComponent } from "./productEditor.component";
 import { OrderTableComponent } from "./orderTable.component";
-
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 let routing = RouterModule.forChild([
     { path: "auth", component: AuthComponent },
     // { path: "main", component: AdminComponent },
@@ -28,7 +29,7 @@ let routing = RouterModule.forChild([
 ]);
 
 @NgModule({
-    imports: [CommonModule, FormsModule, routing, MaterialFeatures],
+    imports: [CommonModule, FormsModule, routing, MaterialFeatures,MatFormFieldModule, MatSelectModule],
     declarations: [AuthComponent, AdminComponent, ProductTableComponent, 
         ProductEditorComponent, OrderTableComponent],
     providers: [AuthGuard]
