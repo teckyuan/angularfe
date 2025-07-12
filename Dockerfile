@@ -1,19 +1,21 @@
-FROM node:16.3.0
+FROM node:16.10-alpine As builder
 
-RUN mkdir -p /usr/src/sportsstore
+WORKDIR /usr/src/app
 
-COPY dist/SportsStore /usr/src/sportsstore/dist/SportsStore
-COPY ssl /usr/src/sportsstore/ssl
-
-COPY authMiddleware.js /usr/src/sportsstore/
-COPY serverdata.json /usr/src/sportsstore/
-COPY server.js /usr/src/sportsstore/server.js
-COPY deploy-package.json /usr/src/sportsstore/package.json
-
-WORKDIR /usr/src/sportsstore
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-EXPOSE 80
+COPY . .
 
-CMD ["node", "server.js"]
+RUN npm run build --prod
+
+FROM nginx:1.15.8-alpine
+
+COPY --from=builder /usr/src/app/dist/SportsStore/ /usr/share/nginx/html #get the application name from angular.json
+
+#https://dev.to/usmslm102/containerizing-angular-application-for-production-using-docker-3mhi
+
+#docker build . -t usmslm102/sampleapp
+
+#docker run -p 3000:80 usmslm102/sampleapp 
