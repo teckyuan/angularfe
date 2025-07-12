@@ -6,6 +6,7 @@ import { Order } from "./order.model";
 import { MassageServiceLookup } from "./massageservicelookup.model";
 import { MassageSession } from "./massagesession.model";
 import { HttpHeaders } from '@angular/common/http';
+import { CreateMassageSessionBE } from "./createmassagesessionbe.model";
 
 const PROTOCOL = "https";
 const PORT = 44349;
@@ -59,6 +60,11 @@ export class RestDataSource {
     saveProduct(product: Product): Observable<Product> {
         return this.http.post<Product>(this.baseUrl + "products",
             product, this.getOptions());
+    }
+
+    createSession(session: CreateMassageSessionBE): Observable<MassageSession> {
+        return this.http.post<MassageSession>(this.baseUrl + "api/MassageSession/CreateMassageSession",
+            session, this.getOptions());
     }
 
     updateProduct(product: Product): Observable<Product> {

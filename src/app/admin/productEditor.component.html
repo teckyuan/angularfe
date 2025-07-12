@@ -4,34 +4,19 @@
 
     <mat-form-field *ngIf="editing">
         <mat-label>ID</mat-label>
-        <input matInput name="id" [(ngModel)]="product.id" disabled />
+        <input matInput name="id" [(ngModel)]="session.MassageServiceId" disabled />
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Customer Name</mat-label>
-        <input matInput required  name="name" [(ngModel)]="product.name" />
+        <input matInput required  name="name" [(ngModel)]="session.CustomerName" />
 
         
     </mat-form-field>
 
-    <!-- <mat-form-field>
-        <mat-label>Category</mat-label>
-        <input matInput name="category" [(ngModel)]="product.category" />
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input name="description"  matInput [(ngModel)]="product.description"/>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Price</mat-label>
-        <input matInput name="price" [(ngModel)]="product.price" />
-    </mat-form-field>  -->
-
     <mat-form-field  >
   <mat-label>Select a Service</mat-label>
-  <mat-select required [(value)]="product.id" style="width: 50%;" >
+  <mat-select required [(value)]="session.MassageServiceId" style="width: 50%;" >
     <mat-option *ngFor="let item of massageServiceLookup" 
     [value]="item.massageServiceId">{{ item.serviceName }}</mat-option>
   </mat-select>

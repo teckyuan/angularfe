@@ -1,9 +1,11 @@
 import { Component , OnInit} from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Product } from "../model/product.model";
+//import { Product } from "../model/product.model";
 import {MassageServiceLookup} from "../model/massageservicelookup.model"
+import {CreateMassageSessionBE} from "../model/createmassagesessionbe.model"
 import { ProductRepository } from "../model/product.repository";
 import { RestDataSource } from "../model/rest.datasource";
+
 
 @Component({
     templateUrl: "productEditor.component.html",
@@ -11,8 +13,8 @@ import { RestDataSource } from "../model/rest.datasource";
 })
 export class ProductEditorComponent implements OnInit { 
     editing: boolean = false;
-    product: Product = new Product();
-    
+    //product: Product = new Product();
+    session: CreateMassageSessionBE= new CreateMassageSessionBE();
     massageServiceLookup: MassageServiceLookup[] = [];
     selected = 'option2';
     
@@ -26,16 +28,41 @@ export class ProductEditorComponent implements OnInit {
         this.editing = activeRoute.snapshot.params["mode"] == "edit";
         
         if (this.editing) {
-            Object.assign(this.product,
-                repository.getProduct(activeRoute.snapshot.params["id"]));
+            // Object.assign(this.product,
+            //     repository.getProduct(activeRoute.snapshot.params["id"]));
         }
 
     
     }
 
+    // save() {
+
+    //     this.repository.saveProduct(this.product);
+    //     this.router.navigateByUrl("/admin/main/products");
+    // }
+
     save() {
-        this.repository.saveProduct(this.product);
-        this.router.navigateByUrl("/admin/main/products");
+        this.dataSource.createSession(this.session).subscribe({
+          next: (response) => {
+            // Handle successful response
+            console.log('Form submitted successfully:', response);
+            // Update UI, show success message, etc.
+
+            //this.repository.saveProduct(this.product);
+            this.router.navigateByUrl("/admin/main/products");
+          },
+          error: (error) => {
+            // Handle errors
+            console.error('Error submitting form:', error);
+            // Show error message to the user
+          },
+          complete: () => {
+            // Optional: Actions to perform when the observable completes (e.g., hide loading spinner)
+            console.log('HTTP request completed.');
+          }
+        });
+      
+    
     }
 
     ngOnInit(): void {
