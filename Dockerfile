@@ -12,7 +12,8 @@ RUN npm run build --prod
 
 FROM nginx:1.15.8-alpine
 
-COPY --from=builder /usr/src/app/dist/SportsStore/ /usr/share/nginx/html #get the application name from angular.json
+COPY --from=builder /usr/src/app/dist/SportsStore/ /usr/share/nginx/html 
+#get the application name from angular.json
 
 #https://dev.to/usmslm102/containerizing-angular-application-for-production-using-docker-3mhi
 
