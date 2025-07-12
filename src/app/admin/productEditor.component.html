@@ -31,7 +31,7 @@
 
     <mat-form-field  >
   <mat-label>Select a Service</mat-label>
-  <mat-select required [(value)]="selected" style="width: 50%;" >
+  <mat-select required [(value)]="product.id" style="width: 50%;" >
     <mat-option *ngFor="let item of massageServiceLookup" 
     [value]="item.massageServiceId">{{ item.serviceName }}</mat-option>
   </mat-select>
