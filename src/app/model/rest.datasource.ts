@@ -8,8 +8,10 @@ import { MassageSession } from "./massagesession.model";
 import { HttpHeaders } from '@angular/common/http';
 import { CreateMassageSessionBE } from "./createmassagesessionbe.model";
 
-const PROTOCOL = "https";
-const PORT = 44349;
+const PROTOCOL = "http";
+//const PORT = 44349;
+const IPAddress = "192.168.1.108";//location.hostname
+const PORT = 28080;
 
 @Injectable()
 export class RestDataSource {
@@ -17,7 +19,7 @@ export class RestDataSource {
     auth_token?: string;
 
     constructor(private http: HttpClient) {
-        this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+        this.baseUrl = `${PROTOCOL}://${IPAddress}:${PORT}/`;
         //this.baseUrl = "/api/"
     }
 
