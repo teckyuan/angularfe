@@ -14,6 +14,7 @@ import { RestDataSource } from "../model/rest.datasource";
 export class ProductEditorComponent implements OnInit { 
     editing: boolean = false;
     //product: Product = new Product();
+    isProcessing: boolean = false;
     session: CreateMassageSessionBE= new CreateMassageSessionBE();
     massageServiceLookup: MassageServiceLookup[] = [];
     selected = 'option2';
@@ -42,6 +43,8 @@ export class ProductEditorComponent implements OnInit {
     // }
 
     save() {
+
+        this.isProcessing = true;
         this.dataSource.createSession(this.session).subscribe({
           next: (response) => {
             // Handle successful response
@@ -55,10 +58,15 @@ export class ProductEditorComponent implements OnInit {
             // Handle errors
             console.error('Error submitting form:', error);
             // Show error message to the user
+
+            
+            this.isProcessing = false;
           },
           complete: () => {
             // Optional: Actions to perform when the observable completes (e.g., hide loading spinner)
             console.log('HTTP request completed.');
+
+            this.isProcessing = false;
           }
         });
       

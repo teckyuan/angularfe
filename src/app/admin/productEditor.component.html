@@ -22,10 +22,10 @@
   </mat-select>
 </mat-form-field>
 
-    <button type="submit" mat-flat-button color="primary">
+    <button [disabled]="isProcessing" type="submit" mat-flat-button color="primary">
         {{editing ? "Save" : "Create"}}
     </button>
-    <button type="reset" mat-stroked-button  routerLink="/admin/main/products">
+    <button [disabled]="isProcessing" type="reset" mat-stroked-button  routerLink="/admin/main/products">
         Cancel
     </button>
 </form>
