@@ -19,4 +19,4 @@ COPY --from=builder /usr/src/app/dist/SportsStore/ /usr/share/nginx/html
 
 #docker build . -t usmslm102/sampleapp
 
-#docker run -p 3000:80 usmslm102/sampleapp 
+#docker run -p 3000:80 --name angular_fe usmslm102/sampleapp
